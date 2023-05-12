@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://chars/bug/Bug.gd" type="Script" id=1]
+[ext_resource path="res://sprites/bug/bug1.png" type="Texture" id=2]
+[ext_resource path="res://sprites/bug/bug_move2.png" type="Texture" id=3]
+[ext_resource path="res://sprites/bug/bug_move3.png" type="Texture" id=4]
+[ext_resource path="res://sprites/bug/bug_move4.png" type="Texture" id=5]
+[ext_resource path="res://sprites/bug/bug_move1.png" type="Texture" id=6]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "move",
+"speed": 4.44
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "static",
+"speed": 5.0
+} ]
+
+[node name="Bug" type="RigidBody2D" groups=["enemy"]]
+position = Vector2( 964, 526 )
+mass = 0.00102041
+gravity_scale = 0.0
+contacts_reported = 1
+contact_monitor = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+rotation = 1.5708
+scale = Vector2( 0.56, 0.56 )
+frames = SubResource( 1 )
+animation = "static"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -43, -30, -23, -43, 6, -38, 48, -20, 48, 22, 6, 40, -23, 45, -43, 31, -43, 8, -43, -6 )
+
+[connection signal="body_entered" from="." to="." method="_on_Bug_body_entered"]
